@@ -1,0 +1,236 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffbb00;
+}
+
+h1 {
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #382200;
+    margin-bottom: 20px;
+    font-size: clamp(2rem, 5vw, 3rem);
+    display: block;
+}
+
+.view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 425px) {
+    .main-view {
+        flex-direction: column;
+    }
+}
+
+.main-view {
+    display: flex;
+}
+
+.kotak {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    line-height: 0;
+    box-sizing: border-box;
+}
+
+.kotak-hijau-tua {
+    background-color: #3da700;
+}
+
+.kotak-hijau-muda {
+    background-color: #72ec00;
+}
+
+.main-map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: auto;
+    width: auto;
+    max-width: 400px;
+    max-height: 440px;
+    background-color: #6b4000;
+    line-height: 0;
+    gap: 0;
+    padding: 20px;
+    margin: 0;
+    border-radius: 15px;
+}
+
+@media (max-width: 425px) {
+    .kotak, .kepala-ular, .ekor-ular, .badan-ular, .makanan-ular,
+    .sudut-kanan-atas, .sudut-kanan-bawah, .sudut-kiri-bawah, .sudut-kiri-atas {
+        max-width: 25px;
+        max-height: 25px;
+    }
+
+    .main-map {
+        padding: 10px;
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+.control-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 1024px) {
+    .control-view {
+        margin-left: 100px;
+    }
+}
+
+.control-button-ball {
+    background-color: rgb(255, 206, 71);
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.control-button {
+    background-color: #ff9100;
+    color: #382200;
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+@media (max-width: 425px) {
+    .control-button-ball {
+        grid-template-columns: repeat(3, 50px);
+        grid-template-rows: repeat(3, 50px);
+        width: 150px;
+        height: 150px;
+    }
+
+    .control-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+}
+
+.control-button:hover {
+    background-color: #ffbb00;
+}
+
+.button-move-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.button-move-right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.button-move-down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.button-move-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.kepala-ular.atas, .ekor-ular.atas, .badan-ular.atas {
+    transform: rotate(0);
+}
+
+.kepala-ular.kanan, .ekor-ular.kanan, .badan-ular.kanan {
+    transform: rotate(90deg);
+}
+
+.kepala-ular.bawah, .ekor-ular.bawah, .badan-ular.bawah {
+    transform: rotate(180deg);
+}
+
+.kepala-ular.kiri, .ekor-ular.kiri, .badan-ular.kiri {
+    transform: rotate(-90deg);
+}
+
+.makanan-ular {
+    background-color: #ff0101;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.sudut-kanan-atas {
+    transform: rotate(0deg);
+}
+
+.sudut-kanan-bawah {
+    transform: rotate(-90deg);
+}
+
+.sudut-kiri-bawah {
+    transform: rotate(180deg);
+}
+
+.sudut-kiri-atas {
+    transform: rotate(90deg);
+}
+
+.play-button {
+    background-color: #ff9100;
+    color: #382200;
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.play-button:hover {
+    background-color: #ff6600;
+}
+
+.skor {
+    position: sticky;
+    top: 20px;
+    right: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    color: #382200;
+    background-color: #ff7901;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.hasil {
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #382200;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
