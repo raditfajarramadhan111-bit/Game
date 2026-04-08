@@ -36,6 +36,7 @@ let ular = [
 ];
 
 let makanan = { y: 4, x: 5 };
+let makananBesar = null;
 let skor = 0;
 let skorTertinggi = parseInt(localStorage.getItem('skorTertinggi')) || 0;
 
@@ -98,6 +99,7 @@ function resetGame () {
    makanan = { y: 4, x: 5 };
    ekor = ular[ular.length - 1];
    arah = 'kanan';
+   skor = 0;
 }
 
 function updateUlarJalan(arah) {
@@ -131,6 +133,7 @@ function updateUlarJalan(arah) {
 
    if (tabrak) {
       clearInterval(gameInterval);
+      clearInterval(makananKuning);
       let control = document.querySelector('.control-view');
 
       renderHasil();
@@ -143,7 +146,13 @@ function updateUlarJalan(arah) {
 
    if (kepalaBaru.x === makanan.x && kepalaBaru.y === makanan.y) {
       munculkanMakanan();
+      skor += 10;
 
+   } else if (makananBesar && kepalaBaru.x === makananBesar.x && kepalaBaru.y === makananBesar.y) {
+      ular.pop();
+      makananBesar = null;
+      skor += 20;
+       updateSkor();
    } else {
       ular.pop();
    }
@@ -218,9 +227,13 @@ function playGame () {
          }
       }
    });
+   makananKuning = setInterval(() => {
+      MunculkanMakananBesar();
+   }, 1000 * 20);
    gameInterval = setInterval(() => {
        updateUlarJalan(arah);
        updateSkor();
+         
     }, 1000);
    isGameRunning = true;
 }
@@ -330,6 +343,12 @@ function renderUlar() {
    let elMakanan = document.querySelector(`.kor-${makanan.y}-${makanan.x}`);
 
    elMakanan.innerHTML = `<div class="makanan-ular"></div>`;
+
+   let elMakananBesar = document.querySelector(`.kor-${makananBesar?.y}-${makananBesar?.x}`);
+
+   if (makananBesar) {
+      elMakananBesar.innerHTML = `<div class="makanan-besar-ular"></div>`;
+   }
 };
 
 function munculkanMakanan () {
@@ -350,8 +369,43 @@ function munculkanMakanan () {
    }
 }
 
+function MunculkanMakananBesar() {
+   let valid = false;
+
+   while (!valid) {
+      let korY = Math.floor(Math.random() * 8) + 1;
+      let korX = Math.floor(Math.random() * 8) + 1;
+
+      let kenaUlar = ular.some(bagian =>
+      bagian.y === korY && bagian.x === korX
+      );
+
+      let kenaMakanan = (makanan.y === korY && makanan.x === korX);
+
+      if (!kenaUlar && !kenaMakanan) {
+         valid = true;
+         makananBesar = { y: korY, x: korX};
+      }
+   }
+
+   let timeBar = document.querySelector('.middle-view');
+   timeBar.innerHTML = `
+   <div class="bar-container">
+      <div class="time-bar"></div>
+   </div>
+   `;
+
+   setTimeout(() => {
+      if (makananBesar) {
+         makananBesar = null;
+         updateSkor();
+      }
+      timeBar.innerHTML = '';
+   }, 1000 * 5);
+}
+
 function updateSkor() {
-   skor = (ular.length - 2) * 10;
+   skor = skor;
    document.querySelector('.skor').innerText = `Skor: ${skor} | Highscore: ${skorTertinggi}`;
 }
 
